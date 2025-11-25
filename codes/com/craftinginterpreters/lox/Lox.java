@@ -1,0 +1,51 @@
+package com.craftinginterpreters.lox;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
+public class Lox {
+    static boolean hadError = false; // エラー状態を追跡するフラグ
+
+    public static void main(String[] args) throws IOException {
+        if (args.length > 1) {
+            System.out.println("Usage: jlox [script]");
+            System.exit(64); // 不正なコマンドライン引数
+        } else if (args.length == 1) {
+            runFile(args[0]);
+        } else {
+            runPrompt();
+        }
+    }
+
+    private static void runFile(String path) throws IOException {
+        byte[] bytes = Files.readAllBytes(Paths.get(path));
+        run(new String(bytes, Charset.defaultCharset()));
+
+        // エラー処理
+        if (hadError) System.exit(65); // データ形式エラー
+    }
+
+    private static void runPrompt() throws IOException {
+        InputStreamReader input = new InputStreamReader(System.in);
+        BufferedReader reader = new BufferedReader(input);
+
+        for (;;) {
+            System.out.print("> ");
+            String line = reader.readLine();
+            if (line == null) break;
+            run(line);
+            hadError = false; // 対話モードではエラー後も続行
+        }
+    }
+
+    private static void run(String source) {
+        // ここに字句解析（スキャン）とパースのコードが入ります
+        // 例: Scanner scanner = new Scanner(source);
+        // List<Token> tokens = scanner.scanTokens();
+    }
+}
