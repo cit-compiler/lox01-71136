@@ -45,7 +45,5 @@ public class Lox {
 
     private static void run(String source) {
         // ここに字句解析（スキャン）とパースのコードが入ります
-        // 例: Scanner scanner = new Scanner(source);
-        // List<Token> tokens = scanner.scanTokens();
     }
 }
