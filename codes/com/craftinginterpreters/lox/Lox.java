@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Lox {
-    static boolean hadError = false; 
+    static boolean hadError = false; // エラー状態を追跡するフラグ
 
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
@@ -25,7 +25,6 @@ public class Lox {
     private static void runFile(String path) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(path));
         run(new String(bytes, Charset.defaultCharset()));
-
         if (hadError) System.exit(65); 
     }
 
@@ -43,6 +42,7 @@ public class Lox {
     }
 
     private static void run(String source) {
+        
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
 
