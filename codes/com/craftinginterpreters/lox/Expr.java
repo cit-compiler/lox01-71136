@@ -2,6 +2,13 @@ package com.craftinginterpreters.lox;
 
 import java.util.List;
 
+interface Visitor<R> {
+    R visitBinaryExpr(Binary expr);
+    R visitGroupingExpr(Grouping expr);
+    R visitLiteralExpr(Literal expr);
+    R visitUnaryExpr(Unary expr);
+}
+
 abstract class Expr {
   interface Visitor<R> {
     R visitBinaryExpr(Binary expr);
@@ -14,6 +21,8 @@ abstract class Expr {
       this.left = left;
       this.operator = operator;
       this.right = right;
+
+  
     }
 
     @Override
@@ -67,6 +76,4 @@ abstract class Expr {
     final Expr right;
   }
 
-
-  abstract <R> R accept(Visitor<R> visitor);
 }
